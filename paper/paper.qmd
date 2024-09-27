@@ -1,0 +1,77 @@
+---
+title: "Exploring a Pandemic Induced Landscape-Shift of Communicable Diseases"
+subtitle: "Analyzing the extent of impact of the Covid-19 pandemic on cases of communicable diseases"
+author: 
+  - Onon Burentuvshin
+date: September 24, 2024
+date-format: long
+abstract: "This paper is an investigation on the extent to which the Covid-19 pandemic influenced the transmission and public response to communicable diseases. With data conducted by Toronto Public Health through the years of 2016-2024, we analyze and compare total cases of communicable diseases before and after the Covid-19 pandemic to determine whether behavioral shifts and improved preventive measures serves their purpose as effective ways of mitigating transmission of communicable diseases. Our analysis yields solid grounds to reason that post-Covid levels of communicable diseases are significantly lower than those of pre-Covid levels. These findings provide reasonable insight into how a public health crisis affects the preventive measures against disease and sickness taken by an aggregate population and healthcare institutions."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+# Introduction
+
+The world witnessed first-hand the disastrous effects of a public health outbreak during the Coronovirus pandemic. A global pandemic that put the world on lock down is certain to induce changes in the preventive measures against diseases and on methods to promote public health. Vulnerabilities were exposed during Covid-19 and it is reasonable to assume that oversight is no longer an issue the public takes lightly. Behavior and preventive measures, in this context, refers to quality of general hygiene, appropriate administrations of antibiotics and vaccinations, and avoidance of risky practices that lead to contagious disease afflictions. This behavior shift is well-documented as previous research asserted that hand-washing frequency and quality improved in a Post Covid-19 environment [@journalbehavior]. In this paper, we seek to test the efficacy of those findings by using data on Monthly Communicable Disease Surveillance Data provided by Toronto Public Health [@torontodisease]. With this data, we seek to identify trends and patterns of contractions of communicable diseases before and after Covid-19. With this, valuable insights can be highlighted on the ways the pandemic shifted perception of public health and whether this shift resulted in more effective preventive measures overall. Our paper will be structured as follows: Section 2 discusses the methodology behind organizing the data set, explanation of measurements and variables, and sources of the data used. Following up, Section 3 will provide a comprehensive overview of the results and Section 4 will be a discussion of these findings.
+
+# Data {#sec-data}
+
+The data set on Monthly Surveillance of Communicable Diseases in Toronto was acquired through Toronto's OpenData Library [@opentorontodata] and was conducted by Toronto Public Health. This data set tracks and reports cases of over 70 communicable diseases that range from sexually transmitted, food and waterborne, vaccine preventable, to outbreaks on a monthly basis. The range of this data spans the years of 2016-2024. The years of interest in our study are the years that constitute Pre-Covid and Post-Covid years. As such, our data utilizes the years 2016, 2017, 2018, 2022, 2023, and 2024, omitting the years of 2019, 2020, and 2021. This is necessary to inspect levels of cases during Pre-Covid (2016, 2017, and 2018) and Post-Covid periods (2022, 2023, and 2024).
+
+## Measuerement Explanation and Variable of Interest
+
+The focus on this paper will be on two variables: YTD cases and YTD rate. YTD is a simple summation of the number of new cases for the months of the corresponding year and YTD rate is the mean contraction rate of a given disease measured in cases per 100,000 people. A word of caution with regard to this data set is that the list of communicable disease does not remain constant throughout each year. Namely, post-Covid data sets have Covid-19 included to the surveillance list of communicable diseases. In the process of cleaning up our data set, the count of Covid-19 cases was omitted to ensure the integrity of our data set: the inclusion of Covid-19 would disproportionately inflate disease transmission cases in our Post-Covid group, misrepresenting the comparison between two periods.
+
+## Data Cleaning Process
+
+The process of cleaning the data involved acquiring the data through Toronto Open Library, extracting the years of interest through its unique IDs, aggregating disease types in a total count as well as monthly counts into its annual counterpart, and combining all years of data together to form a coherent data set. Furthermore, invalid and non-numeric entries or observations were coerced to N/A to ensure the stability and integrity of our analysis. This cleaning process was performed through R [@citeR], `tidyverse` [@tidyverse]  , `dplyr` [@dplyr], and `ggplot2` [@ggplot2]. 
+
+This summary cleanly displays the aggregate cases of communicable diseases from 2018 to 2024, excluding peak Covid-19 years. Similar to our justification for dropping counts of Covid-19 cases in our surveillance data, it is prudent to omit years (2019-2021) in which Covid-19 necessitated varying degrees of lock down and quarantine. Primarily, this omission is done for two important reasons:
+         
+1. A lock down and quarantine disrupts the uninhibited activity of people's day-to-day life and is performed for the               purpose of preventing the transmission of communicable diseases. Inclusion of such years would introduce a bias                 into our data set as quarantine is a unique circumstance that was not present during our Pre-Covid and Post-Covid               periods.
+2. The purpose of this paper is to investigate the impact of Covid-19 on the preventive measures against communicable
+   diseases taken by an aggregate population, which are reflected by changes in the number of cases and contraction
+   rate. For this purpose, the appropriate years of investigation are those of before and afer Covid-19.
+
+Accordingly, the data set was structured to allow for direct comparisons across the years of interest.
+
+# Results
+
+Our findings of the analysis of Surveillance of Communicable Disease data reveals a stark contrast between Pre-Covid and Post-Covid disease contractions, substantiating the claim of more effective preventive measures and a behavioral shift undertaken after Covid-19. Our findings present two main observations:
+           
+1. Although 2022 and 2023 produce higher cases of transmissions than the average of Pre-Covid periods, the
+Post-Covid period consistently exhibited a decreasing trend year-to-year. To illustrate, from 2022 to 2024, total
+cases fell from 30,479 to 16,761, representing a 45% decrease across two years. On the other hand, from 2016 to 2018, total cases rose from 26,125 to 31,930, representing a 22.22% increase across two years. 
+
+2. On aggregate, total cases of transmission in the Pre-Covid period was 85,528 compared to our Post-Covid periods,
+which yields a figure of 77,639. In other words, total cases of communicable disease transmissions decreased by                 about 9.2% after Covid-19.
+
+
+# Discussion
+
+## Declining Communicable Disease Cases: A Closer Look {#sec-first-point}
+Our research presented a significant decline of 9.2% in communicable disease cases between our Pre-Covid and Post-Covid periods, representing a clear trend shift in the frequency of disease transmissions. The most illuminating implication of our findings is that there is a clear trend shift from positive growth of cases to negative growth of cases after  Covid-19. Between 2023 and 2024, there was a significant drop in YTD cases. In fact, approximately 99.7% of the stated 45% of decrease during the Post-Covid period happened between these two years. This is an indication that decreasing trend is not entirely consistent as the decrease between 2022 and 2023 is entirely negligible with a meager 0.26% decrease. 
+
+## Designation Issues
+Although we assigned 2022-2024 as the Post-Covid period in our data set, official medical governing bodies, such as the WHO, declared the pandemic to be officially over on May 5, 2023 [@journalpandemicend]. This timeline constitutes about half of our Post-Covid period. To preserve the symmetry and integrity of our data and research, there are unavoidable constraints with regard to the years that could be designated pre-covid and post-covid periods.Despite these considerations, there is sufficient evidence to suggest that year-over-year YTD cases are on the decline. However, further data is required to establish whether this decline is largely attributed to behavioral changes and improved preventive measures induced by Covid-19. Although this paper served its purpose in identifying sufficient evidence to suggest that the pandemic reshaped public perception and response to communicable diseases, it is worth exploring how the pandemic induced such a shift. On its own, public behaviors and preventive measures represent a broad area of research. Specific behaviors and preventive measures such as immunization trends, state of healthcare access, distribution of medical resources, and public health interventions could certainly contextualize our Post-Covid landscape.
+
+## Weaknesses and Future Research
+
+The primary limitation of our research is our sample size. Although the Covid-19 pandemic is an interesting case study, it remains ambiguous whether the same narrative applies to other similar case studies such as the SARs outbreak during the early 2000s. Furthermore, the long-term sustainability of current trends is uncertain. Without data that spans a longer time-frame, it is uncertain whether current trends of low transmission rates will remain or steadily retract back to pre-Covid levels. Therefore, future areas of study can implement a larger range of data over time to include a wider spectrum of pandemics and health crises pursuant to exploring the cyclical nature of communicable diseases. Additionally, identifying specific areas of policy implications and recommendations is beyond the scope of our paper. It falls short to provide the exact healthcare practices and public behaviors that contribute most to the decline of communicable disease transmissions, rendering it difficult to identify policy recommendations that sustains these trends. According to these shortcomings, future research should focus on exploring the dynamics between specific behaviors and preventive measure policies with its affect on transmission rates through regression analyses. Such analysis will give important insight into the prioritization of policies that should be integrated into a long-term public health strategy to manage communicable diseases.
+
+
+\newpage
+
+# References
